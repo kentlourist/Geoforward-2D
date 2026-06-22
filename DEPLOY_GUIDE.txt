@@ -1,0 +1,91 @@
+# PANDUAN DEPLOY GEOFORWARD 2D KE STREAMLIT CLOUD
+# =====================================================
+
+## LANGKAH 1 — Buat akun GitHub (jika belum)
+# Buka: https://github.com/signup
+# Daftar dengan email dan buat username
+
+## LANGKAH 2 — Buat repositori baru di GitHub
+# 1. Login ke github.com
+# 2. Klik tombol "+" di kanan atas → "New repository"
+# 3. Isi:
+#    - Repository name: geoforward-2d
+#    - Description: Aplikasi forward modelling geolistrik 2D
+#    - Pilih: Public
+#    - JANGAN centang "Initialize with README"
+# 4. Klik "Create repository"
+
+## LANGKAH 3 — Upload semua file ke GitHub
+# Ada dua cara:
+
+### Cara A — Via browser (paling mudah, tanpa install Git):
+# 1. Di halaman repositori kosong yang baru dibuat, klik "uploading an existing file"
+# 2. Drag & drop SEMUA file berikut ke jendela upload:
+#    - app.py
+#    - inv_parser.py
+#    - forward_model.py
+#    - plotting.py
+#    - app_extra.py
+#    - requirements.txt
+#    - README.md
+#    - .gitignore
+# 3. Untuk folder .streamlit/config.toml:
+#    Buat file baru → klik "Add file" → "Create new file"
+#    Ketik nama: .streamlit/config.toml
+#    Copy-paste isi file config.toml
+# 4. Klik "Commit changes"
+
+### Cara B — Via terminal Git:
+# git init
+# git add .
+# git commit -m "Initial commit GeoForward 2D"
+# git branch -M main
+# git remote add origin https://github.com/USERNAME/geoforward-2d.git
+# git push -u origin main
+
+## LANGKAH 4 — Deploy ke Streamlit Cloud
+# 1. Buka: https://share.streamlit.io
+# 2. Klik "Sign in with GitHub" → authorize
+# 3. Klik "New app"
+# 4. Isi form:
+#    - Repository: USERNAME/geoforward-2d
+#    - Branch: main
+#    - Main file path: app.py
+# 5. Klik "Deploy!"
+# 6. Tunggu 2-3 menit hingga muncul URL aplikasi
+
+## URL APLIKASI
+# Setelah deploy berhasil, URL aplikasi akan berbentuk:
+# https://USERNAME-geoforward-2d-app-XXXX.streamlit.app
+# atau kustom: https://geoforward.streamlit.app (jika nama tersedia)
+
+## MENJALANKAN SECARA LOKAL (tanpa deploy)
+# pip install -r requirements.txt
+# streamlit run app.py
+# Buka browser: http://localhost:8501
+
+## STRUKTUR FILE YANG HARUS DI-UPLOAD
+# geoforward-2d/
+# ├── app.py              ← Aplikasi Streamlit utama (WAJIB)
+# ├── inv_parser.py       ← Parser file .INV (WAJIB)
+# ├── forward_model.py    ← Kalkulasi forward modelling (WAJIB)
+# ├── plotting.py         ← Visualisasi Plotly (WAJIB)
+# ├── app_extra.py        ← Export laporan HTML (WAJIB)
+# ├── requirements.txt    ← Dependensi Python (WAJIB)
+# ├── README.md           ← Dokumentasi (disarankan)
+# ├── .gitignore          ← Exclude file tidak perlu
+# └── .streamlit/
+#     └── config.toml     ← Tema warna aplikasi
+
+## TROUBLESHOOTING
+# Error: ModuleNotFoundError
+#   → Pastikan requirements.txt sudah terupload dan berisi semua library
+#
+# Error: File not found
+#   → Pastikan semua file .py terupload di root folder (bukan subfolder)
+#
+# Aplikasi berjalan lambat pertama kali
+#   → Normal — Streamlit Cloud perlu waktu install dependensi (~1-2 menit)
+#
+# Plot tidak muncul
+#   → Refresh halaman atau tunggu beberapa detik
